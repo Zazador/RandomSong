@@ -141,7 +141,6 @@ public class MainActivity extends Activity implements PlayerNotificationCallback
                 Log.d("Album success", album.name);
             }
 
-
             public void failure(SpotifyError error) {
                 Log.e("Album failure", error.toString());
             }
@@ -159,26 +158,27 @@ public class MainActivity extends Activity implements PlayerNotificationCallback
             public void success(Album myAlbum, Response response) {
                 album = myAlbum;
                 Log.d("Album success", album.name);
-
-                Pager<TrackSimple> albumTracks = album.tracks;
-                List<TrackSimple> songs = albumTracks.items;
-                Random randomGen = new Random();
-
-                int index = randomGen.nextInt(songs.size());
-                TrackSimple myTrack = songs.get(index);
-
-                mySong = myTrack.id;
-                Log.d("mySong = ", mySong);
-                Log.d("myTrack ID = ", myTrack.id);
-                playSong(mySong);
+                getRandomSong();
             }
-
-
+            
             public void failure(SpotifyError error) {
                 Log.e("Album failure", error.toString());
             }
         });
+    }
 
+    public void getRandomSong () {
+        Pager<TrackSimple> albumTracks = album.tracks;
+        List<TrackSimple> songs = albumTracks.items;
+        Random randomGen = new Random();
+
+        int index = randomGen.nextInt(songs.size());
+        TrackSimple myTrack = songs.get(index);
+
+        mySong = myTrack.id;
+        Log.d("mySong = ", mySong);
+        Log.d("myTrack ID = ", myTrack.id);
+        playSong(mySong);
     }
 
     public void playSong(String songID) {
