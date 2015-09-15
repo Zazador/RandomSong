@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.spotify.sdk.android.authentication.AuthenticationClient;
@@ -36,6 +37,8 @@ public class MainActivity extends Activity implements PlayerNotificationCallback
     private static final String CLIENT_ID = "13352d0cc13443af9faa6ad2da794afa";
     private static final String REDIRECT_URI = "my-first-android-app-login://callback";
     private String mySong = "init";
+    private Album album;
+    private String myToken;
 
     // Request code that will be used to verify if the result comes from correct activity
     // Can be any integer
@@ -66,20 +69,13 @@ public class MainActivity extends Activity implements PlayerNotificationCallback
             AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
             if (response.getType() == AuthenticationResponse.Type.TOKEN) {
                 Config playerConfig = new Config(this, response.getAccessToken(), CLIENT_ID);
-                final String TOKEN = response.getAccessToken();
+                myToken = response.getAccessToken();
                 mPlayer = Spotify.getPlayer(playerConfig, this, new Player.InitializationObserver() {
                     @Override
                     public void onInitialized (Player player) {
-                        Log.d("Step 0", mySong);
-                        //getRandomAlbumTrack(TOKEN);
-                        Log.d("Step 1", mySong);
                         mPlayer.addConnectionStateCallback(MainActivity.this);
-                        Log.d("Step 2", mySong);
+
                         mPlayer.addPlayerNotificationCallback(MainActivity.this);
-                        Log.d("Step 3", mySong);
-                        getRandomAlbumTrack(TOKEN);
-                        playSong(mySong);
-                        Log.d("Playing song: ", mySong);
                     }
 
                     @Override
@@ -140,9 +136,9 @@ public class MainActivity extends Activity implements PlayerNotificationCallback
 
         spotify.getAlbum("7paOpVZ35xmBn9ijROCG5Q", new SpotifyCallback<Album>() {
             @Override
-            public void success(Album album, Response response) {
+            public void success(Album myAlbum, Response response) {
+                album = myAlbum;
                 Log.d("Album success", album.name);
-                setSongID(album);
             }
 
 
@@ -153,22 +149,40 @@ public class MainActivity extends Activity implements PlayerNotificationCallback
 
     }
 
-    public void setSongID (Album album) {
-        Pager<TrackSimple> albumTracks = album.tracks;
-        List<TrackSimple> songs = albumTracks.items;
-        Random randomGen = new Random();
+    public void setSongID (View view) {
+        SpotifyApi api = new SpotifyApi();
+        api.setAccessToken(myToken);
+        SpotifyService spotify = api.getService();
 
-        int index = randomGen.nextInt(songs.size());
-        TrackSimple myTrack = songs.get(index);
+        spotify.getAlbum("7paOpVZ35xmBn9ijROCG5Q", new SpotifyCallback<Album>() {
+            @Override
+            public void success(Album myAlbum, Response response) {
+                album = myAlbum;
+                Log.d("Album success", album.name);
 
-        mySong = myTrack.id;
-        Log.d("mySong = ", mySong);
-        Log.d("myTrack ID = ", myTrack.id);
-        //playSong(mySong);
+                Pager<TrackSimple> albumTracks = album.tracks;
+                List<TrackSimple> songs = albumTracks.items;
+                Random randomGen = new Random();
+
+                int index = randomGen.nextInt(songs.size());
+                TrackSimple myTrack = songs.get(index);
+
+                mySong = myTrack.id;
+                Log.d("mySong = ", mySong);
+                Log.d("myTrack ID = ", myTrack.id);
+                playSong(mySong);
+            }
+
+
+            public void failure(SpotifyError error) {
+                Log.e("Album failure", error.toString());
+            }
+        });
+
     }
 
     public void playSong(String songID) {
-        mPlayer.play(songID);
+        mPlayer.play("spotify:track:" + songID);
     }
 
 }
