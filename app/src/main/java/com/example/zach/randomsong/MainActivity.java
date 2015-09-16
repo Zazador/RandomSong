@@ -215,8 +215,12 @@ public class MainActivity extends Activity implements PlayerNotificationCallback
         mySong = track.id;
         Log.d("mySong = ", mySong);
 
-        TextView trackName = (TextView) findViewById(R.id.textView);
+        TextView trackName = (TextView) findViewById(R.id.trackName);
+        TextView pauseButton = (TextView) findViewById(R.id.pauseButton);
+        TextView resumeButton = (TextView) findViewById(R.id.resumeButton);
         trackName.setText(track.name);
+        pauseButton.setVisibility(View.VISIBLE);
+        resumeButton.setVisibility(View.VISIBLE);
 
         playSong(mySong);
 
@@ -224,6 +228,14 @@ public class MainActivity extends Activity implements PlayerNotificationCallback
 
     public void playSong(String songID) {
         mPlayer.play("spotify:track:" + songID);
+    }
+
+    public void pauseSong(View view) {
+        mPlayer.pause();
+    }
+
+    public void resumeSong(View view) {
+        mPlayer.resume();
     }
 
 }
