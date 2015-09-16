@@ -3,9 +3,11 @@ package com.example.zach.randomsong;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spotify.sdk.android.authentication.AuthenticationClient;
@@ -199,8 +201,6 @@ public class MainActivity extends Activity implements PlayerNotificationCallback
                 playRandomSong(playlistTrackPager);
             }
         });
-
-
     }
 
     // Play a random song from the randomly selected playlist
@@ -214,7 +214,12 @@ public class MainActivity extends Activity implements PlayerNotificationCallback
 
         mySong = track.id;
         Log.d("mySong = ", mySong);
+
+        TextView trackName = (TextView) findViewById(R.id.textView);
+        trackName.setText(track.name);
+
         playSong(mySong);
+
     }
 
     public void playSong(String songID) {
