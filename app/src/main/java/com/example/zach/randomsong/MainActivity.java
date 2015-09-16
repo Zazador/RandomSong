@@ -27,7 +27,11 @@ import kaaes.spotify.webapi.android.SpotifyError;
 import kaaes.spotify.webapi.android.SpotifyService;
 import kaaes.spotify.webapi.android.models.Album;
 import kaaes.spotify.webapi.android.models.Pager;
+import kaaes.spotify.webapi.android.models.PlaylistSimple;
+import kaaes.spotify.webapi.android.models.PlaylistTrack;
+import kaaes.spotify.webapi.android.models.Track;
 import kaaes.spotify.webapi.android.models.TrackSimple;
+import kaaes.spotify.webapi.android.models.UserPrivate;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -128,56 +132,84 @@ public class MainActivity extends Activity implements PlayerNotificationCallback
         super.onDestroy();
     }
 
-    public void getRandomAlbumTrack (String Token) {
-
-        SpotifyApi api = new SpotifyApi();
-        api.setAccessToken(Token);
-        SpotifyService spotify = api.getService();
-
-        spotify.getAlbum("7paOpVZ35xmBn9ijROCG5Q", new SpotifyCallback<Album>() {
-            @Override
-            public void success(Album myAlbum, Response response) {
-                album = myAlbum;
-                Log.d("Album success", album.name);
-            }
-
-            public void failure(SpotifyError error) {
-                Log.e("Album failure", error.toString());
-            }
-        });
-
-    }
-
-    public void setSongID (View view) {
+    // Get all of the current user's playlists
+    public void getMyPlaylists(View view) {
         SpotifyApi api = new SpotifyApi();
         api.setAccessToken(myToken);
         SpotifyService spotify = api.getService();
 
-        spotify.getAlbum("7paOpVZ35xmBn9ijROCG5Q", new SpotifyCallback<Album>() {
+        spotify.getMe(new SpotifyCallback<UserPrivate>() {
             @Override
-            public void success(Album myAlbum, Response response) {
-                album = myAlbum;
-                Log.d("Album success", album.name);
-                getRandomSong();
+            public void failure(SpotifyError spotifyError) {
+                Log.e("SpotifyError ", spotifyError.toString());
             }
-            
+
+            @Override
+            public void success(UserPrivate userPrivate, Response response) {
+
+            }
+        });
+        String userID = curUser.id;
+
+        Log.d("getMyPlaylists", "began getMyPlaylists");
+        spotify.getPlaylists(userID, new SpotifyCallback<Pager<PlaylistSimple>>() {
+            @Override
+            public void success(Pager<PlaylistSimple> curUserPlaylists, Response response) {
+                List<PlaylistSimple> myPlaylists = curUserPlaylists.items;
+                Random randomGen = new Random();
+
+                int index = randomGen.nextInt(myPlaylists.size());
+                PlaylistSimple myPlaylist = myPlaylists.get(index);
+
+                Log.d("getMyPlaylists", "completed getMyPlaylists");
+
+                getPlaylistTracks(myPlaylist);
+            }
+
+            @Override
             public void failure(SpotifyError error) {
-                Log.e("Album failure", error.toString());
+                Log.e("SpotifyError ", error.toString());
             }
         });
     }
 
-    public void getRandomSong () {
-        Pager<TrackSimple> albumTracks = album.tracks;
-        List<TrackSimple> songs = albumTracks.items;
+    // Get the tracks from the randomly selected playlist
+    public void getPlaylistTracks(PlaylistSimple playlist) {
+        SpotifyApi api = new SpotifyApi();
+        api.setAccessToken(myToken);
+        SpotifyService spotify = api.getService();
+
+        UserPrivate curUser = spotify.getMe();
+        String userID = curUser.id;
+
+        spotify.getPlaylistTracks(userID, playlist.id, new SpotifyCallback<Pager<PlaylistTrack>>() {
+            @Override
+            public void failure(SpotifyError spotifyError) {
+                Log.e("SpotifyError ", spotifyError.toString());
+            }
+
+            @Override
+            public void success(Pager<PlaylistTrack> playlistTrackPager, Response response) {
+                Log.d("getPlaylistTracks", "completed getPlaylistTracks");
+
+                playRandomSong(playlistTrackPager);
+            }
+        });
+
+
+    }
+
+    // Play a random song from the randomly selected playlist
+    public void playRandomSong(Pager<PlaylistTrack> playlistTracks) {
+        List<PlaylistTrack> myTracks = playlistTracks.items;
         Random randomGen = new Random();
 
-        int index = randomGen.nextInt(songs.size());
-        TrackSimple myTrack = songs.get(index);
+        int index = randomGen.nextInt(myTracks.size());
+        PlaylistTrack myTrack = myTracks.get(index);
+        Track track = myTrack.track;
 
-        mySong = myTrack.id;
+        mySong = track.id;
         Log.d("mySong = ", mySong);
-        Log.d("myTrack ID = ", myTrack.id);
         playSong(mySong);
     }
 
