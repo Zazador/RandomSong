@@ -41,7 +41,7 @@ public class MainActivity extends Activity implements PlayerNotificationCallback
     private static final String CLIENT_ID = "13352d0cc13443af9faa6ad2da794afa";
     private static final String REDIRECT_URI = "my-first-android-app-login://callback";
     private String mySong = "init";
-    private Album album;
+    private String userID;
     private String myToken;
 
     // Request code that will be used to verify if the result comes from correct activity
@@ -132,8 +132,8 @@ public class MainActivity extends Activity implements PlayerNotificationCallback
         super.onDestroy();
     }
 
-    // Get all of the current user's playlists
-    public void getMyPlaylists(View view) {
+    // Get current logged-in user
+    public void getCurUser(View view) {
         SpotifyApi api = new SpotifyApi();
         api.setAccessToken(myToken);
         SpotifyService spotify = api.getService();
@@ -146,12 +146,19 @@ public class MainActivity extends Activity implements PlayerNotificationCallback
 
             @Override
             public void success(UserPrivate userPrivate, Response response) {
-
+                userID = userPrivate.id;
+                getMyPlaylists();
             }
         });
-        String userID = curUser.id;
+    }
 
-        Log.d("getMyPlaylists", "began getMyPlaylists");
+    // Get all of the current user's playlists
+    public void getMyPlaylists() {
+        SpotifyApi api = new SpotifyApi();
+        api.setAccessToken(myToken);
+        SpotifyService spotify = api.getService();
+
+        Log.d("getMyPlaylists2", "began getMyPlaylists2");
         spotify.getPlaylists(userID, new SpotifyCallback<Pager<PlaylistSimple>>() {
             @Override
             public void success(Pager<PlaylistSimple> curUserPlaylists, Response response) {
@@ -178,9 +185,6 @@ public class MainActivity extends Activity implements PlayerNotificationCallback
         SpotifyApi api = new SpotifyApi();
         api.setAccessToken(myToken);
         SpotifyService spotify = api.getService();
-
-        UserPrivate curUser = spotify.getMe();
-        String userID = curUser.id;
 
         spotify.getPlaylistTracks(userID, playlist.id, new SpotifyCallback<Pager<PlaylistTrack>>() {
             @Override

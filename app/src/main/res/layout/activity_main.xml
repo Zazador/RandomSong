@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:textSize="20sp"
         android:text="Play Random Creed Song"
-        android:onClick="getMyPlaylists"/>
+        android:onClick="getCurUser"/>
 
 
 </RelativeLayout>
