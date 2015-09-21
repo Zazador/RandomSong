@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,9 @@ import com.spotify.sdk.android.player.Player;
 import com.spotify.sdk.android.player.PlayerNotificationCallback;
 import com.spotify.sdk.android.player.PlayerState;
 import com.spotify.sdk.android.player.Spotify;
+import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 import java.util.Random;
@@ -28,12 +32,17 @@ import kaaes.spotify.webapi.android.SpotifyCallback;
 import kaaes.spotify.webapi.android.SpotifyError;
 import kaaes.spotify.webapi.android.SpotifyService;
 import kaaes.spotify.webapi.android.models.Album;
+import kaaes.spotify.webapi.android.models.AlbumSimple;
+import kaaes.spotify.webapi.android.models.ArtistSimple;
+import kaaes.spotify.webapi.android.models.Followers;
+import kaaes.spotify.webapi.android.models.Image;
 import kaaes.spotify.webapi.android.models.Pager;
 import kaaes.spotify.webapi.android.models.PlaylistSimple;
 import kaaes.spotify.webapi.android.models.PlaylistTrack;
 import kaaes.spotify.webapi.android.models.Track;
 import kaaes.spotify.webapi.android.models.TrackSimple;
 import kaaes.spotify.webapi.android.models.UserPrivate;
+import kaaes.spotify.webapi.android.models.UserPublic;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -212,13 +221,25 @@ public class MainActivity extends Activity implements PlayerNotificationCallback
         PlaylistTrack myTrack = myTracks.get(index);
         Track track = myTrack.track;
 
+        List<ArtistSimple> artists = track.artists;
+        ArtistSimple artist = artists.get(0);
+
+        AlbumSimple album = track.album;
+        List<Image> images = album.images;
+        Image albumArt = images.get(0);
+        Log.d("albumArt URL: ", albumArt.url);
+        Picasso.with(getApplicationContext()).load(albumArt.url).into((ImageView) findViewById(R.id.albumArt));
+
+
         mySong = track.id;
         Log.d("mySong = ", mySong);
 
         TextView trackName = (TextView) findViewById(R.id.trackName);
+        TextView artistName = (TextView) findViewById(R.id.artistName);
         TextView pauseButton = (TextView) findViewById(R.id.pauseButton);
         TextView resumeButton = (TextView) findViewById(R.id.resumeButton);
         trackName.setText(track.name);
+        artistName.setText(artist.name);
         pauseButton.setVisibility(View.VISIBLE);
         resumeButton.setVisibility(View.VISIBLE);
 

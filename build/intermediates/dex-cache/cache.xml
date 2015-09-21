@@ -2,88 +2,11 @@
 <items version="2" >
 
     <item
-        jar="E:\Android\RandomSong\app\build\intermediates\exploded-aar\com.spotify.sdk\spotify-player\1.0.0-beta10\jars\classes.jar"
+        jar="C:\Users\Zach\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="303cdfb0e82e35c8ee189313e3d0ccc144accdc4">
-        <dex dex="E:\Android\RandomSong\app\build\intermediates\pre-dexed\debug\classes-f9b5fd053bd1551738e729e416327b0faaed6637.jar" />
-    </item>
-    <item
-        jar="E:\Android\RandomSong\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
-        <dex dex="E:\Android\RandomSong\app\build\intermediates\pre-dexed\debug\classes-803811fe82875f89eefd381f3a29c253f745bfc4.jar" />
-    </item>
-    <item
-        jar="E:\Android\RandomSong\app\build\intermediates\exploded-aar\com.spotify.sdk\spotify-auth\1.0.0-beta10\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="a2736a2c8e3bd1d508baa11851e9a77f62646d08">
-        <dex dex="E:\Android\RandomSong\app\build\intermediates\pre-dexed\debug\classes-23f7a7a0617c4ed3cba4205d116d45eae2051fa4.jar" />
-    </item>
-    <item
-        jar="E:\Android\RandomSong\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
-        <dex dex="E:\Android\RandomSong\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-57126163284fead6760b39764b58e67aca6272e4.jar" />
-    </item>
-    <item
-        jar="E:\Android\RandomSong\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
-        <dex dex="E:\Android\RandomSong\app\build\intermediates\pre-dexed\debug\classes-58b5ede2dfdbd0bdc2879137533999ab7f4a0590.jar" />
-    </item>
-    <item
-        jar="C:\Users\Zach\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.3.1\ecb6e1f8e4b0e84c4b886c2f14a1500caf309757\gson-2.3.1.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
-        <dex dex="E:\Android\RandomSong\app\build\intermediates\pre-dexed\debug\gson-2.3.1-54a9c6c629e3822d27e9a8273fafb02e55602bb4.jar" />
-    </item>
-    <item
-        jar="C:\Users\Zach\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit\retrofit\1.9.0\a681c044244d9fc375198588297a39ba78028423\retrofit-1.9.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="a681c044244d9fc375198588297a39ba78028423">
-        <dex dex="E:\Android\RandomSong\app\build\intermediates\pre-dexed\debug\retrofit-1.9.0-0309907ebf51e143e60a7040888ae2d3fba2f49f.jar" />
-    </item>
-    <item
-        jar="E:\Android\RandomSong\app\build\intermediates\exploded-aar\spotify-web-api-android-0.1.1\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="c1363ad4dd8df0c7e773758a5a7f085ac42f8a69">
-        <dex dex="E:\Android\RandomSong\app\build\intermediates\pre-dexed\debug\classes-c2839fc662149df45063a3632368792a35909abb.jar" />
-    </item>
-    <item
-        jar="C:\Users\Zach\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp\okhttp\2.2.0\959c454243581fdf730abfd4f4745441724bcf2c\okhttp-2.2.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="959c454243581fdf730abfd4f4745441724bcf2c">
-        <dex dex="E:\Android\RandomSong\app\build\intermediates\pre-dexed\debug\okhttp-2.2.0-bf6917a3dbdc2a7e8796a1db6bb71c1310d4e1bd.jar" />
-    </item>
-    <item
-        jar="C:\Users\Zach\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.2.0\c0b52915a48fa91b1b94a28d4a2997bac5f524df\okio-1.2.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="c0b52915a48fa91b1b94a28d4a2997bac5f524df">
-        <dex dex="E:\Android\RandomSong\app\build\intermediates\pre-dexed\debug\okio-1.2.0-fb2fce53289312a48ac07fafc6216d977b0eb171.jar" />
-    </item>
-    <item
-        jar="E:\Android\RandomSong\app\build\intermediates\exploded-aar\com.spotify.sdk\spotify-player\1.0.0-beta10\jars\libs\jnihelpers-1.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="863562b367d763d45f9bb44f58a5029007f79555">
-        <dex dex="E:\Android\RandomSong\app\build\intermediates\pre-dexed\debug\jnihelpers-1.0-abf2d87ad5c32394447f6f7d77e43b5f999c1524.jar" />
-    </item>
-    <item
-        jar="C:\Users\Zach\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
-        <dex dex="E:\Android\RandomSong\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-7e23e9479c0c39976d776e87188c1f02f3d31953.jar" />
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="E:\Android\RandomSong\app\build\intermediates\pre-dexed\debug\picasso-2.5.2-cef550b24ae9f22b1e715ad751c16e75b5fba0de.jar" />
     </item>
 
 </items>
